@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Ludo Royale - Premium Ludo</title>
+    <meta
+      name="description"
+      content="A premium, production-quality Ludo game with intelligent AI opponents, authentic rules, and polished motion design."
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Tailwind CSS (utility layer for layout/spacing; design tokens & components live in styles/style.css) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Anime.js (motion engine) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <!-- ==================== SPLASH / LOADING SCREEN ==================== -->
+    <section
+      id="splash-screen"
+      class="splash-screen"
+      aria-label="Loading Ludo Royale"
+    >
+      <div class="splash-bg" aria-hidden="true"></div>
+      <div class="splash-content">
+        <div
+          id="splash-dice-mount"
+          class="splash-dice"
+          aria-hidden="true"
+        ></div>
+        <h1 class="splash-logo">
+          <span class="logo-word">LUDO</span
+          ><span class="logo-word logo-word-accent">ROYALE</span>
+        </h1>
+        <p class="splash-tagline">Premium board gaming, reimagined</p>
+        <div
+          class="splash-progress-track"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-label="Loading progress"
+        >
+          <div id="splash-progress-fill" class="splash-progress-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MAIN MENU ==================== -->
+    <main id="screen-menu" class="screen menu-screen" hidden>
+      <div class="ambient-bg" aria-hidden="true">
+        <span class="blob blob-blue"></span>
+        <span class="blob blob-orange"></span>
+        <span class="blob blob-green"></span>
+        <div class="particle-field"></div>
+      </div>
+
+      <div class="menu-content">
+        <div class="menu-brand">
+          <i class="fa-solid fa-dice menu-brand-icon" aria-hidden="true"></i>
+          <h1 class="menu-title">
+            <span>LUDO</span> <span class="text-accent-cyan">ROYALE</span>
+          </h1>
+          <p class="menu-subtitle">Roll. Race. Rule the board.</p>
+        </div>
+
+        <nav class="menu-actions" aria-label="Main menu">
+          <button
+            id="btn-resume"
+            class="menu-card menu-card-primary"
+            type="button"
+            hidden
+          >
+            <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+            <span>Resume Match</span>
+          </button>
+          <button
+            id="btn-play"
+            class="menu-card menu-card-primary"
+            type="button"
+          >
+            <i class="fa-solid fa-play" aria-hidden="true"></i>
+            <span>Play</span>
+          </button>
+          <button id="btn-how-to-play" class="menu-card" type="button">
+            <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+            <span>How To Play</span>
+          </button>
+          <button id="btn-settings" class="menu-card" type="button">
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>
+            <span>Settings</span>
+          </button>
+          <button id="btn-statistics" class="menu-card" type="button">
+            <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
+            <span>Statistics</span>
+          </button>
+          <button id="btn-credits" class="menu-card" type="button">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <span>Credits</span>
+          </button>
+        </nav>
+
+        <footer class="menu-footer">
+          <a href="pages/legal.html" class="menu-footer-link"
+            >Terms &amp; Privacy</a
+          >
+          <span class="menu-footer-dot" aria-hidden="true">·</span>
+          <span
+            >© 2026
+            <a
+              href="https://stackiid.github.io/portfolio/"
+              target="_blank"
+              rel="noopener"
+              class="menu-footer-link"
+              >Ubaid Ahmad</a
+            ></span
+          >
+        </footer>
+      </div>
+    </main>
+
+    <!-- ==================== PLAYER SETUP ==================== -->
+    <main id="screen-setup" class="screen setup-screen" hidden>
+      <div class="ambient-bg" aria-hidden="true">
+        <span class="blob blob-blue"></span>
+        <span class="blob blob-orange"></span>
+      </div>
+
+      <div class="setup-panel glass-panel">
+        <header class="setup-header">
+          <button
+            id="btn-setup-back"
+            class="icon-btn"
+            type="button"
+            aria-label="Back to main menu"
+          >
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          </button>
+          <h2>Match Setup</h2>
+          <div class="setup-header-spacer" aria-hidden="true"></div>
+        </header>
+
+        <div class="setup-section">
+          <h3 class="setup-label">
+            <i class="fa-solid fa-users" aria-hidden="true"></i> Number of
+            Players
+          </h3>
+          <div
+            id="setup-player-count"
+            class="segmented-control"
+            role="group"
+            aria-label="Number of players"
+          >
+            <button class="segment-btn" type="button" data-count="2">2</button>
+            <button class="segment-btn" type="button" data-count="3">3</button>
+            <button class="segment-btn is-active" type="button" data-count="4">
+              4
+            </button>
+          </div>
+        </div>
+
+        <div class="setup-section">
+          <h3 class="setup-label">
+            <i class="fa-solid fa-user-gear" aria-hidden="true"></i> Players
+          </h3>
+          <div id="setup-players-list" class="setup-players-list"></div>
+        </div>
+
+        <button
+          id="btn-start-match"
+          class="btn btn-primary btn-large"
+          type="button"
+        >
+          <i class="fa-solid fa-flag-checkered" aria-hidden="true"></i>
+          <span>Start Match</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- ==================== GAME SCREEN ==================== -->
+    <main id="screen-game" class="screen game-screen" hidden>
+      <header id="game-header" class="game-header">
+        <div class="header-brand">
+          <i class="fa-solid fa-dice" aria-hidden="true"></i>
+          <span class="header-brand-text">LUDO ROYALE</span>
+        </div>
+
+        <div
+          id="header-current-player"
+          class="header-current-player"
+          aria-live="polite"
+        >
+          <span class="header-player-dot"></span>
+          <span id="header-player-name" class="header-player-name">-</span>
+          <span id="header-ai-badge" class="ai-badge" hidden
+            ><i class="fa-solid fa-microchip" aria-hidden="true"></i> AI</span
+          >
+        </div>
+
+        <div class="header-timer" aria-live="off">
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          <span id="header-timer-value">00:00:00</span>
+        </div>
+
+        <div class="header-actions">
+          <button
+            id="btn-sound-toggle"
+            class="icon-btn"
+            type="button"
+            aria-label="Toggle sound"
+          >
+            <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
+          </button>
+          <button
+            id="btn-restart"
+            class="icon-btn"
+            type="button"
+            aria-label="Restart match"
+          >
+            <i class="fa-solid fa-arrow-rotate-right" aria-hidden="true"></i>
+          </button>
+          <button
+            id="btn-settings-ingame"
+            class="icon-btn"
+            type="button"
+            aria-label="Settings"
+          >
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>
+          </button>
+          <button
+            id="btn-back-menu"
+            class="icon-btn"
+            type="button"
+            aria-label="Back to main menu"
+          >
+            <i class="fa-solid fa-house" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <div id="game-main" class="game-main players-4">
+        <div class="player-card-slot" data-slot="A"></div>
+        <div class="player-card-slot" data-slot="B"></div>
+        <div id="board-mount" class="board-mount" aria-label="Ludo board"></div>
+        <div class="player-card-slot" data-slot="C"></div>
+        <div class="player-card-slot" data-slot="D"></div>
+      </div>
+
+      <section
+        id="game-hud"
+        class="game-hud glass-panel"
+        aria-label="Game controls"
+      >
+        <div id="dice-mount" class="dice-mount" aria-label="Dice"></div>
+        <div class="hud-center">
+          <button
+            id="btn-roll-dice"
+            class="btn btn-primary"
+            type="button"
+            disabled
+          >
+            <i class="fa-solid fa-dice" aria-hidden="true"></i>
+            <span>Roll Dice</span>
+          </button>
+          <p
+            id="status-message"
+            class="status-message"
+            role="status"
+            aria-live="polite"
+          >
+            Preparing match…
+          </p>
+        </div>
+        <button
+          id="btn-history"
+          class="icon-btn"
+          type="button"
+          aria-label="Move history"
+        >
+          <i class="fa-solid fa-list-ul" aria-hidden="true"></i>
+        </button>
+      </section>
+    </main>
+
+    <!-- ==================== GAME START CINEMATIC ==================== -->
+    <div
+      id="cinematic-overlay"
+      class="cinematic-overlay"
+      hidden
+      aria-hidden="true"
+    >
+      <div id="cinematic-text" class="cinematic-text"></div>
+    </div>
+
+    <!-- Live region for screen-reader announcements that don't warrant a visible toast -->
+    <div id="sr-announcer" class="sr-only" aria-live="assertive"></div>
+
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/board.js"></script>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/sound.js"></script>
+    <script src="scripts/timer.js"></script>
+    <script src="scripts/dice.js"></script>
+    <script src="scripts/player.js"></script>
+    <script src="scripts/ai.js"></script>
+    <script src="scripts/animation.js"></script>
+    <script src="scripts/modal.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>

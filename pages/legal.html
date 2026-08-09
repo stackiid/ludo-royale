@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Terms &amp; Privacy - Ludo Royale</title>
+    <meta
+      name="description"
+      content="Terms and Conditions and Privacy Policy for Ludo Royale."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <style>
+      .legal-page {
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: 28px 16px 60px;
+      }
+      .legal-shell {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      .legal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .legal-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        color: var(--cyan);
+      }
+      .legal-brand i {
+        font-size: 1.2rem;
+      }
+      .legal-tabs {
+        display: flex;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        padding: 6px;
+        border-radius: 14px;
+        margin-bottom: 22px;
+      }
+      .legal-tab {
+        flex: 1;
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        text-align: center;
+      }
+      .legal-tab.is-active {
+        background: linear-gradient(135deg, var(--electric-blue), var(--cyan));
+        color: #06101a;
+      }
+      .legal-panel {
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .legal-panel[hidden] {
+        display: none;
+      }
+      .legal-panel h1 {
+        font-size: 1.5rem;
+        margin-bottom: 2px;
+      }
+      .legal-updated {
+        color: var(--text-muted);
+        font-size: 0.8rem;
+      }
+      .legal-panel h2 {
+        font-size: 1.05rem;
+        margin-top: 8px;
+        color: var(--text-primary);
+      }
+      .legal-panel p,
+      .legal-panel li {
+        color: var(--text-secondary);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+      .legal-panel ul {
+        padding-left: 20px;
+        list-style: disc;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .legal-panel a {
+        color: var(--cyan);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .legal-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+        margin: 6px 0;
+      }
+      .legal-table th,
+      .legal-table td {
+        text-align: left;
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+      }
+      .legal-table th {
+        color: var(--text-primary);
+        font-family: var(--font-display);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .legal-footer {
+        text-align: center;
+        margin-top: 26px;
+        color: var(--text-muted);
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="legal-page">
+      <div class="ambient-bg" aria-hidden="true">
+        <span class="blob blob-blue"></span>
+        <span class="blob blob-orange"></span>
+      </div>
+
+      <div class="legal-shell" style="position: relative">
+        <div class="legal-header">
+          <div class="legal-brand">
+            <i class="fa-solid fa-dice" aria-hidden="true"></i> LUDO ROYALE
+          </div>
+          <a
+            href="../index.html"
+            class="icon-btn"
+            aria-label="Back to game"
+            style="
+              width: auto;
+              padding: 0 14px;
+              gap: 8px;
+              display: inline-flex;
+              align-items: center;
+            "
+          >
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to
+            Game
+          </a>
+        </div>
+
+        <div class="legal-tabs" role="tablist" aria-label="Legal documents">
+          <button
+            class="legal-tab is-active"
+            id="tab-terms"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-terms"
+          >
+            Terms &amp; Conditions
+          </button>
+          <button
+            class="legal-tab"
+            id="tab-privacy"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-privacy"
+          >
+            Privacy Policy
+          </button>
+        </div>
+
+        <section
+          id="panel-terms"
+          class="legal-panel glass-panel"
+          role="tabpanel"
+          aria-labelledby="tab-terms"
+        >
+          <h1>Terms and Conditions</h1>
+          <p class="legal-updated">Last updated: August 2026</p>
+          <p>
+            Welcome to <strong>Ludo Royale</strong> ("the Game," "we," "our").
+            These Terms and Conditions ("Terms") govern your access to and use
+            of the Game. By opening or playing the Game, you agree to these
+            Terms. If you don't agree, please don't use the Game.
+          </p>
+          <p>
+            This is a free, browser-based, single-page project with no user
+            accounts and no backend server - these Terms are written to match
+            that reality rather than being a generic template.
+          </p>
+
+          <h2>1. What the Game Is</h2>
+          <p>
+            Ludo Royale is a client-side board game that runs entirely inside
+            your web browser. It has no account system, no multiplayer server,
+            and no purchases. All game state (statistics, settings, and your
+            current match) is stored locally in your browser using
+            <code>localStorage</code> - see the Privacy Policy tab for details.
+          </p>
+
+          <h2>2. License to Use</h2>
+          <p>
+            You're welcome to play the Game for personal, non-commercial
+            enjoyment, free of charge. The Game's source code is provided as-is
+            for personal and educational use. Full license terms - including the
+            disclaimer of warranties and limitation of liability that govern any
+            use of this software - are in the project's
+            <a href="../LICENSE.md" target="_blank" rel="noopener">LICENSE</a>
+            file. If you'd like to reuse, redistribute, or build on the code
+            beyond personal/educational use, please reach out first - see
+            Contact below.
+          </p>
+          <p>
+            The Game uses the following third-party, openly-licensed resources,
+            each under their own respective licenses:
+            <a href="https://tailwindcss.com/" target="_blank" rel="noopener"
+              >Tailwind CSS</a
+            >,
+            <a href="https://animejs.com/" target="_blank" rel="noopener"
+              >Anime.js</a
+            >,
+            <a href="https://fontawesome.com/" target="_blank" rel="noopener"
+              >Font Awesome</a
+            >, and
+            <a href="https://fonts.google.com/" target="_blank" rel="noopener"
+              >Google Fonts</a
+            >. We don't claim ownership of these third-party libraries.
+          </p>
+
+          <h2>3. Acceptable Use</h2>
+          <ul>
+            <li>
+              Don't attempt to disrupt, reverse-engineer for malicious purposes,
+              or attack the Game or the services it depends on.
+            </li>
+            <li>
+              Don't use any automated system to scrape, spam, or abuse the Game
+              beyond normal, individual play.
+            </li>
+            <li>Don't use the Game for any unlawful purpose.</li>
+          </ul>
+
+          <h2>4. No Accounts, No User-Submitted Content</h2>
+          <p>
+            The Game does not collect a username, email address, or any other
+            personal information, and does not accept file uploads or public
+            user-submitted content. Player names you type during Match Setup are
+            stored only in your own browser and are never transmitted anywhere.
+          </p>
+
+          <h2>5. Third-Party Services</h2>
+          <p>
+            Loading the Game fetches resources from third-party CDNs (Google
+            Fonts, cdnjs, Tailwind CSS CDN). Your use of those resources is
+            subject to each provider's own terms and privacy practices, which we
+            don't control.
+          </p>
+
+          <h2>6. Disclaimer of Warranties</h2>
+          <p>
+            The Game is provided
+            <strong>"as is" and "as available,"</strong> without warranties of
+            any kind, express or implied, including merchantability, fitness for
+            a particular purpose, or non-infringement. We don't guarantee the
+            Game will be uninterrupted, error-free, or compatible with every
+            browser or device.
+          </p>
+
+          <h2>7. Limitation of Liability</h2>
+          <p>
+            To the fullest extent permitted by law, we are not liable for any
+            indirect, incidental, or consequential damages arising from your use
+            of, or inability to use, the Game - including loss of locally-stored
+            match data or statistics.
+          </p>
+
+          <h2>8. Changes to the Game or These Terms</h2>
+          <p>
+            We may update the Game or these Terms at any time. Continued use
+            after changes are published constitutes acceptance of the updated
+            Terms.
+          </p>
+
+          <h2>9. Governing Law</h2>
+          <p>
+            These Terms are governed by the laws of Pakistan, without regard to
+            conflict-of-law principles, unless otherwise required by the law of
+            your jurisdiction.
+          </p>
+
+          <h2>10. Contact</h2>
+          <p>
+            Questions about these Terms? Reach out to
+            <a href="mailto:iubaidahmad303@gmail.com"
+              >iubaidahmad303@gmail.com</a
+            >.
+          </p>
+        </section>
+
+        <section
+          id="panel-privacy"
+          class="legal-panel glass-panel"
+          role="tabpanel"
+          aria-labelledby="tab-privacy"
+          hidden
+        >
+          <h1>Privacy Policy</h1>
+          <p class="legal-updated">Last updated: August 2026</p>
+          <p>
+            This Privacy Policy explains what happens to your data when you play
+            <strong>Ludo Royale</strong>. The short version: there's no server,
+            no account, and nothing about your play is ever sent anywhere.
+            Here's the full picture.
+          </p>
+
+          <h2>1. We Don't Collect Anything</h2>
+          <p>
+            Ludo Royale has no backend server, no database, and no analytics. We
+            have no way to see how you play, who you are, or anything else about
+            your session - because nothing you do in the Game is ever
+            transmitted to us or anyone else. The Game does not create accounts,
+            use cookies, use analytics or tracking, show ads, or transmit your
+            gameplay, statistics, or player names anywhere.
+          </p>
+
+          <h2>2. What's Stored, and Where</h2>
+          <p>
+            The Game uses your browser's built-in <code>localStorage</code> -
+            data that lives entirely on your own device and is never sent over
+            the network - to remember three things between visits:
+          </p>
+          <table class="legal-table">
+            <thead>
+              <tr>
+                <th>Stored data</th>
+                <th>What it contains</th>
+                <th>Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Settings</td>
+                <td>Sound / animations on-off</td>
+                <td>Remember your preferences</td>
+              </tr>
+              <tr>
+                <td>Statistics</td>
+                <td>Games played, wins, losses, best times</td>
+                <td>Power the Statistics screen</td>
+              </tr>
+              <tr>
+                <td>Saved match</td>
+                <td>Board state, whose turn it is, elapsed time</td>
+                <td>Power "Resume Match"</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Player names typed in Match Setup are part of that saved match data
+            - stored locally, never transmitted, and easy to clear at any time
+            via Settings, or by clearing your browser's site data for this page.
+          </p>
+
+          <h2>3. Third-Party Content Delivery Networks</h2>
+          <p>
+            To render fonts, icons, and animations, the Game loads resources
+            from Google Fonts, cdnjs.cloudflare.com (Font Awesome, Anime.js),
+            and cdn.tailwindcss.com. Loading any resource involves your browser
+            making a standard HTTP request, which can expose ordinary technical
+            information (like your IP address) to that provider, per their own
+            privacy policies. We don't send them anything about you beyond what
+            your browser sends automatically when fetching a font or script
+            file.
+          </p>
+
+          <h2>4. Children's Privacy</h2>
+          <p>
+            The Game is generally suitable for players of any age and, since it
+            collects no personal information from anyone, imposes no age
+            restriction.
+          </p>
+
+          <h2>5. Data Security</h2>
+          <p>
+            Because everything is stored locally in your own browser, the
+            security of that data is governed by your own device and browser's
+            security, same as any other website's local storage.
+          </p>
+
+          <h2>6. Your Choices</h2>
+          <ul>
+            <li>
+              Clear selectively via Settings → Reset Statistics / Clear Saved
+              Match, in-game.
+            </li>
+            <li>
+              Clear entirely via your browser's "Clear browsing data" for this
+              site.
+            </li>
+            <li>
+              Prevent it entirely with private/incognito browsing (statistics
+              and resume won't work in that mode).
+            </li>
+          </ul>
+
+          <h2>7. Changes to This Policy</h2>
+          <p>
+            If this policy changes, we'll update the "Last updated" date above.
+          </p>
+
+          <h2>8. Contact</h2>
+          <p>
+            Questions about this Privacy Policy? Reach out to
+            <a href="mailto:iubaidahmad303@gmail.com"
+              >iubaidahmad303@gmail.com</a
+            >.
+          </p>
+        </section>
+
+        <p class="legal-footer">© 2026 Ubaid Ahmad · Ludo Royale</p>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+        var tabTerms = document.getElementById("tab-terms");
+        var tabPrivacy = document.getElementById("tab-privacy");
+        var panelTerms = document.getElementById("panel-terms");
+        var panelPrivacy = document.getElementById("panel-privacy");
+
+        function activate(which) {
+          var isTerms = which === "terms";
+          panelTerms.hidden = !isTerms;
+          panelPrivacy.hidden = isTerms;
+          tabTerms.classList.toggle("is-active", isTerms);
+          tabPrivacy.classList.toggle("is-active", !isTerms);
+          tabTerms.setAttribute("aria-selected", String(isTerms));
+          tabPrivacy.setAttribute("aria-selected", String(!isTerms));
+        }
+
+        tabTerms.addEventListener("click", function () {
+          activate("terms");
+          history.replaceState(null, "", "#terms");
+        });
+        tabPrivacy.addEventListener("click", function () {
+          activate("privacy");
+          history.replaceState(null, "", "#privacy");
+        });
+
+        activate(window.location.hash === "#privacy" ? "privacy" : "terms");
+      })();
+    </script>
+  </body>
+</html>
