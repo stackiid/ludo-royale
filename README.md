@@ -63,7 +63,7 @@ with zero external services, trackers, or analytics.
 │   ├── icons/    (Font Awesome CDN - see README inside)
 │   └── images/   (CSS/SVG rendered - see README inside)
 ├── README.md            # You are here
-└── LICENSE.md           # Software license (all rights reserved, "as is", no liability)
+└── LICENSE           # Software license (all rights reserved, "as is", no liability)
 ```
 
 ## Installation
@@ -136,7 +136,7 @@ see **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 
 - **[legal/TERMS.md](legal/TERMS.md)** - Terms and Conditions
 - **[legal/PRIVACY.md](legal/PRIVACY.md)** - Privacy Policy
-- **[LICENSE.md](LICENSE.md)** - Software license: ownership, "as is" disclaimer, and limitation of liability
+- **[LICENSE](LICENSE)** - Software license: ownership, "as is" disclaimer, and limitation of liability
 - **[pages/legal.html](pages/legal.html)** - the Terms & Privacy documents, rendered as a live in-app page (linked from the main menu footer and from Settings), since plain `.md` files don't render as readable pages on every static host without a build step
 
 The short version of the Privacy Policy: there's no server, no accounts,
@@ -155,7 +155,7 @@ options:
 - **Any static file host** (S3 + CloudFront, nginx, etc.) - upload the folder as-is.
 
 Before going live, it's worth doing a final pass on `legal/TERMS.md` /
-`legal/PRIVACY.md` / `pages/legal.html` / `LICENSE.md` to fill in your own
+`legal/PRIVACY.md` / `pages/legal.html` / `LICENSE` to fill in your own
 contact details and jurisdiction if you've forked this project rather
 than using it as-is.
 
@@ -201,5 +201,5 @@ the same information alongside the license badges for those projects.
 
 This project is licensed under an all-rights-reserved license with an
 explicit "as is" disclaimer and limitation of liability - see
-[LICENSE.md](LICENSE.md) for the full text, and
+[LICENSE](LICENSE) for the full text, and
 [legal/TERMS.md](legal/TERMS.md) for the plain-language Terms of use.

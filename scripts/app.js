@@ -11,7 +11,7 @@
   const Game = window.Ludo.Game;
 
   // ---------------------------------------------------------------------
-  //                               App-wide state
+  //                              App-wide state
   // ---------------------------------------------------------------------
   const state = {
     settings: SettingsStore.load(),
@@ -29,7 +29,7 @@
   const COLOR_SLOT = { red: "A", green: "B", yellow: "C", blue: "D" };
 
   // ---------------------------------------------------------------------
-  //                                   Boot
+  //                                  Boot
   // ---------------------------------------------------------------------
   document.addEventListener("DOMContentLoaded", init);
 
@@ -51,7 +51,7 @@
   }
 
   // ---------------------------------------------------------------------
-  //                              Splash screen
+  //                            Splash screen
   // ---------------------------------------------------------------------
   function runSplash() {
     const splash = qs("#splash-screen");
@@ -95,7 +95,7 @@
   }
 
   // ---------------------------------------------------------------------
-  //                                  Main menu
+  //                                 Main menu
   // ---------------------------------------------------------------------
   function wireMenu() {
     qs("#btn-play").addEventListener("click", () => {
@@ -189,6 +189,13 @@
 
     qs("#btn-start-match").addEventListener("click", () => {
       sound.click();
+      if (state.setup.seats.every((seat) => seat.isAI)) {
+        showSetupError(
+          "At least one human player is required. All-AI matches are not allowed.",
+        );
+        return;
+      }
+      hideSetupError();
       const playerConfigs = state.setup.seats.map((seat) => ({
         color: seat.color,
         name: seat.name.trim() || defaultNameFor(seat.color),
@@ -196,6 +203,22 @@
       }));
       launchMatch({ playerConfigs });
     });
+  }
+
+  function showSetupError(message) {
+    const errorEl = qs("#setup-error-message");
+    errorEl.replaceChildren(
+      icon("fa-solid fa-triangle-exclamation"),
+      document.createTextNode(message),
+    );
+    errorEl.hidden = false;
+    sound.error();
+  }
+
+  function hideSetupError() {
+    const errorEl = qs("#setup-error-message");
+    errorEl.hidden = true;
+    errorEl.replaceChildren();
   }
 
   function qsAllSegments() {
@@ -209,6 +232,7 @@
   function showSetupScreen() {
     hideAllScreens();
     state.screens.setup.hidden = false;
+    hideSetupError();
     renderSetupSeats();
     Anim.staggerIn([qs(".setup-panel")], {
       enabled: state.settings.animationsEnabled,
@@ -263,6 +287,7 @@
         seat.isAI = false;
         humanBtn.classList.add("is-active");
         aiBtn.classList.remove("is-active");
+        hideSetupError();
       });
       aiBtn.addEventListener("click", () => {
         sound.click();
@@ -288,7 +313,7 @@
   }
 
   // ---------------------------------------------------------------------
-  //                  Launching / restoring a match
+  //                    Launching / restoring a match
   // ---------------------------------------------------------------------
   function launchMatch({ playerConfigs, resumeSnapshot = null }) {
     hideAllScreens();
@@ -369,7 +394,7 @@
   }
 
   // ---------------------------------------------------------------------
-  //                     In-match header + HUD wiring
+  //                      In-match header + HUD wiring
   // ---------------------------------------------------------------------
   function wireGameHeader() {
     qs("#btn-sound-toggle").addEventListener("click", toggleSound);
@@ -449,7 +474,7 @@
   }
 
   // ---------------------------------------------------------------------
-  //                       Game event wiring -> DOM
+  //                        Game event wiring -> DOM
   // ---------------------------------------------------------------------
   function wireGameEvents(game) {
     const statusEl = qs("#status-message");
@@ -615,7 +640,7 @@
   }
 
   // ---------------------------------------------------------------------
-  //                                Win screen
+  //                                 Win screen
   // ---------------------------------------------------------------------
   function onGameWon({ winner, elapsedMs, stats }) {
     const meta = PLAYER_META[winner.color];
@@ -714,7 +739,7 @@
   }
 
   // ---------------------------------------------------------------------
-  //                               Modals: How To Play
+  //                          Modals: How To Play
   // ---------------------------------------------------------------------
   function openHowToPlayModal() {
     const rules = [
@@ -768,7 +793,7 @@
   }
 
   // ---------------------------------------------------------------------
-  //                              Modals: Settings
+  //                        Modals: Settings
   // ---------------------------------------------------------------------
   function openSettingsModal() {
     const soundRow = buildToggleRow(
@@ -890,7 +915,7 @@
   }
 
   // ---------------------------------------------------------------------
-  //                              Modals: Statistics
+  //                           Modals: Statistics
   // ---------------------------------------------------------------------
   function openStatisticsModal() {
     const stats = StatsStore.load();

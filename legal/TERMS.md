@@ -25,7 +25,7 @@ You're welcome to play the Game for personal, non-commercial enjoyment,
 free of charge. The full license terms governing the Game's source code -
 including the disclaimer of warranties and limitation of liability that
 apply to any use of this software - are in
-[LICENSE.md](../LICENSE.md), which forms part of these Terms by
+[LICENSE](../LICENSE), which forms part of these Terms by
 reference. If you'd like to reuse, redistribute, or build on the
 code beyond that (for example, in a commercial product), please reach out
 first - see the Contact section below.

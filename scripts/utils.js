@@ -76,7 +76,7 @@
     return node;
   }
 
-  /** Font Awesome icon factory (never emojis, per design spec) */
+  /** Font Awesome icon factory */
   function icon(classes, extraClass = "") {
     return el("i", {
       className: `${classes} ${extraClass}`.trim(),
