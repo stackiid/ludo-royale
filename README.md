@@ -1,205 +1,242 @@
 # Ludo Royale
 
-A premium, production-quality **Ludo** board game built with nothing but
-HTML5, CSS3, Tailwind CSS, vanilla JavaScript (ES2023), and Anime.js. No
-build step, no server, no dependencies to install - open `index.html` and
-play.
+![HTML5](https://img.shields.io/badge/HTML-5-E34F26)
+![CSS3](https://img.shields.io/badge/CSS-3-1572B6)
+![JavaScript](https://img.shields.io/badge/JavaScript-vanilla-F7DF1E)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-CDN-06B6D4)
+![Anime.js](https://img.shields.io/badge/Anime.js-3.2.2-ED4E50)
+![License](https://img.shields.io/badge/license-MIT-green)
 
----
+A browser-based Ludo board game for two to four players, built with vanilla JavaScript, HTML5, and CSS3. It runs entirely on the client with no backend, includes AI opponents, an animated 3D dice, procedurally generated sound effects, a match timer, local statistics, and automatic save and resume.
 
-## Project Overview
+## Live Demo
 
-Ludo Royale implements the complete, authentic international Ludo ruleset
-(exact-finish movement, capturing, safe squares, six-to-unlock, the
-three-sixes penalty, blockades) with a modern glassmorphic dark UI, a fully
-animated 3D dice, intelligent AI opponents, an official match timer, local
-statistics tracking, and autosave/resume - all running entirely client-side
-with zero external services, trackers, or analytics.
+[https://stackiid.github.io/ludo-royale/](https://stackiid.github.io/ludo-royale/)
+
+## Table of Contents
+
+- [Features](#features)
+- [Game Rules](#game-rules)
+- [How to Play](#how-to-play)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Architecture](#architecture)
+- [Data Storage](#data-storage)
+- [Accessibility](#accessibility)
+- [SEO](#seo)
+- [Performance Considerations](#performance-considerations)
+- [Known Limitations](#known-limitations)
+- [Documentation and Legal](#documentation-and-legal)
+- [License](#license)
+- [Author](#author)
+- [Acknowledgements](#acknowledgements)
 
 ## Features
 
-- **Authentic rules engine** - official international board geometry, exact-finish movement, capturing with safe-square protection, six-to-unlock, three-consecutive-sixes forfeiture, and blockade detection.
-- **2–4 players**, any mix of Human and AI (1 human/3 AI, 2v2, 3v1, full human, or full AI).
-- **Intelligent AI** - "thinks" for 600–1200ms, then prioritizes captures → reaching home → exiting base → safe movement → a sensible fallback move.
-- **Premium 3D dice** - CSS-cube rendering, Anime.js roll animation, cryptographically fair randomness (Web Crypto, rejection-sampled).
-- **Polished motion** - tile-by-tile token movement (never teleports), landing bounce/glow, capture shake, active-player pulse, entrance staggers, a full "Get Ready → Prepare → Almost There → GO" match-start cinematic, and a confetti/fireworks win celebration.
-- **Procedural audio** - every sound effect is synthesized live via the Web Audio API (see `assets/sounds/README.md`), with a single shared `AudioContext`, instant mute, and no duplicate/overlapping playback.
-- **Professional match timer** (HH:MM:SS) in the header, stored and shown on the victory screen.
-- **Full HUD** - current player, dice value, remaining/captured tokens per player, move history, elapsed time.
-- **Modal system** - focus-trapped, ESC-to-close, click-outside-to-close, scroll-locked, with dedicated confirmation dialogs for every destructive action (Quit, Restart, Reset Statistics, Return to Menu, New Game, Clear Save).
-- **Statistics & autosave** - games played, wins, losses, fastest win, longest match, and average duration persisted to `localStorage`; the current match auto-saves after every turn and can be resumed from the main menu.
-- **Responsive, mobile-first layout** - the board is always the centered hero element; player cards arrange around it per the official layout spec, from 320px phones up to ultra-wide desktops.
-- **Accessibility** - full keyboard navigation, ARIA labels and live regions, visible focus states, `prefers-reduced-motion` and `prefers-contrast` support.
+- Two, three, or four player matches, with each seat set to Human or AI and a custom name of up to 16 characters
+- Rules engine covering exact-roll finishing, captures, safe squares, six-to-exit, extra turn on a six, a three-sixes penalty, and blockades
+- AI opponents that pause for 0.6 to 1.2 seconds before rolling and choose moves with a scoring heuristic (captures first, then reaching home, leaving the base, and landing on safe squares)
+- CSS 3D dice animated with Anime.js, with results drawn through the Web Crypto API using rejection sampling so each face is equally likely
+- Tile-by-tile token movement, landing and capture effects, an active-player highlight, and a "Get Ready, Prepare, Almost There, GO!" countdown at the start of a match
+- Confetti celebration on the victory screen
+- Sound effects synthesized at runtime with the Web Audio API, so the repository contains no audio files
+- Match timer in HH:MM:SS shown in the header and on the victory screen
+- Heads-up display with player cards that show remaining tokens, captures made, and tokens home, plus a move history dialog
+- Statistics for games played, wins, losses, fastest win, longest match, and average duration
+- Automatic save after every turn, with a Resume Match button on the main menu
+- Confirmation dialogs for destructive actions such as restarting, leaving a match, resetting statistics, and clearing a saved match
+- Settings for sound and animations
+- Responsive layout that places each player's card near their color's corner of the board
 
-## Folder Structure
+## Game Rules
 
+| Rule | Behavior in this game |
+| --- | --- |
+| Turn order | Red, Green, Blue, Yellow, clockwise. Two-player matches use Red and Blue; three-player matches use Red, Green, and Blue |
+| Board corners | Red top-left, Green top-right, Blue bottom-right, Yellow bottom-left |
+| Tokens | Four per player, starting in the base |
+| Leaving the base | Requires a roll of 6; the token moves to its color's start square |
+| Extra turn | A roll of 6 grants another roll, including when no move is possible |
+| Three sixes | Rolling three sixes in a row forfeits the turn |
+| Movement | Clockwise around the shared 52-square track, then into the color's own six-square home column |
+| Finishing | A token must reach home with an exact roll; a roll that would overshoot is not a legal move |
+| Safe squares | Each color's start square plus one star square per quadrant. Tokens on safe squares cannot be captured |
+| Capture | Landing on an opponent token on an unsafe track square sends it back to its base |
+| Blockade | Two or more tokens of one color on a square block opponents from landing on or passing that square |
+| Winning | The first player to bring all four tokens home wins |
+
+When more than one move is legal, a human player clicks the highlighted token to move. If only one move is legal it is played automatically.
+
+## How to Play
+
+1. Choose **Play** from the main menu and select two, three, or four players.
+2. Set each seat to Human or AI and enter names. At least one seat must be Human; all-AI matches are not allowed.
+3. Start the match and wait for the countdown.
+4. On a human turn, press the roll button, then click a highlighted token if you have a choice of moves.
+5. Your match saves automatically. Leave at any time and choose **Resume Match** from the main menu later.
+
+## Tech Stack
+
+| Category | Technology |
+| --- | --- |
+| Markup | HTML5 |
+| Styling | Custom CSS with design tokens, plus Tailwind CSS through the Play CDN script for utilities |
+| Scripting | Vanilla JavaScript, organized as plain scripts on a shared `window.Ludo` namespace |
+| Animation | Anime.js 3.2.2, loaded from cdnjs |
+| Audio | Web Audio API (procedural sound effects) |
+| Randomness | Web Crypto API for dice rolls |
+| Fonts | Google Fonts: Space Grotesk (display) and Inter (body) |
+| Icons | Font Awesome 6.5.2, loaded from cdnjs |
+| Storage | Browser `localStorage` |
+| Build tooling | None |
+
+## Project Structure
+
+```text
+ludo-royale/
+|-- assets/
+|   |-- icons/
+|   |   `-- README.md       # Notes: icons come from Font Awesome
+|   |-- images/
+|   |   `-- README.md       # Notes: visuals are drawn with CSS and DOM elements
+|   |-- sounds/
+|   |   `-- README.md       # Notes: sounds are generated at runtime
+|   `-- favicon.svg
+|-- docs/
+|   `-- ARCHITECTURE.md     # File-by-file code reference
+|-- legal/
+|   |-- PRIVACY.md
+|   `-- TERMS.md
+|-- pages/
+|   `-- legal.html          # Terms and Privacy rendered as a page
+|-- scripts/
+|   |-- ai.js               # AI move scoring
+|   |-- animation.js        # Anime.js animations
+|   |-- app.js              # Screens, menus, HUD, and modals
+|   |-- board.js            # Board geometry and rendering
+|   |-- dice.js             # 3D dice and fair random rolls
+|   |-- game.js             # Rules engine and turn flow
+|   |-- modal.js            # Dialog and confirmation system
+|   |-- player.js           # Player and token models
+|   |-- sound.js            # Web Audio sound effects
+|   |-- storage.js          # localStorage wrapper
+|   |-- timer.js            # Match timer
+|   `-- utils.js            # Shared constants and DOM helpers
+|-- styles/
+|   `-- style.css           # Design tokens, components, and responsive rules
+|-- index.html              # Entry point with the splash, menu, setup, and game screens
+|-- LICENSE                 # MIT License
+`-- README.md
 ```
-/
-├── index.html
-├── pages/
-│   └── legal.html      # Live Terms & Privacy page (linked from the main menu)
-├── docs/
-│   └── ARCHITECTURE.md # Deep-dive: every JS file, every function, how to change things
-├── legal/
-│   ├── TERMS.md         # Terms & Conditions (source document)
-│   └── PRIVACY.md       # Privacy Policy (source document)
-├── styles/
-│   └── style.css
-├── scripts/
-│   ├── app.js         # Screens, menus, HUD wiring, modals (composition root)
-│   ├── board.js        # Authentic 15x15 board geometry + rendering
-│   ├── dice.js          # 3D dice, fair RNG, roll animation
-│   ├── player.js        # Player / Token domain models
-│   ├── game.js           # Rules engine + turn orchestration
-│   ├── animation.js       # Every Anime.js timeline, centralized
-│   ├── sound.js            # Procedural Web Audio sound engine
-│   ├── storage.js           # localStorage wrapper (stats/settings/save)
-│   ├── timer.js               # Match timer
-│   ├── modal.js                # Reusable modal/confirmation system
-│   ├── ai.js                    # AI move-selection heuristics
-│   └── utils.js                  # Shared constants & DOM helpers
-├── assets/
-│   ├── sounds/   (procedural - see README inside)
-│   ├── icons/    (Font Awesome CDN - see README inside)
-│   └── images/   (CSS/SVG rendered - see README inside)
-├── README.md            # You are here
-└── LICENSE           # Software license (all rights reserved, "as is", no liability)
+
+## Prerequisites
+
+- A modern web browser with support for `localStorage`, the Web Audio API, and the Web Crypto API
+- An internet connection, because Tailwind CSS, Anime.js, Font Awesome, and Google Fonts are loaded from external hosts
+- Optional: Python 3, if you prefer to serve the game through a local web server
+
+## Getting Started
+
+Clone the repository and move into it:
+
+```bash
+git clone https://github.com/stackiid/ludo-royale.git
+cd ludo-royale
 ```
 
-## Installation
+Open `index.html` directly in a browser, or serve the folder locally:
 
-There is nothing to install. Download or clone the project, then:
-
-```
-open index.html
+```bash
+python3 -m http.server 8000
 ```
 
-...or just double-click the file in your file browser. That's it - no
-`npm install`, no build step, no local server required.
+Then visit `http://localhost:8000`.
 
-## Usage
+There are no packages to install and no build step. The scripts are plain `<script>` files rather than ES modules, so the game also works when `index.html` is opened from the file system.
 
-1. **Play** from the main menu to configure 2–4 players, choose Human or AI
-   for each seat, and name them.
-2. Watch the match-start cinematic, then take turns rolling the dice.
-3. When you have more than one legal move, click the glowing token you want
-   to move.
-4. First player to bring all four tokens home wins.
-5. Your match auto-saves after every turn - quit anytime and resume later
-   from the main menu.
+## Architecture
 
-## Technologies
+The code is split into single-purpose files that attach their public API to one shared `window.Ludo` object. The load order in `index.html` matters: each script reads the namespace as soon as it runs, so `utils.js` loads first and `app.js` loads last.
 
-- **HTML5** - semantic structure throughout
-- **CSS3** - custom properties, CSS Grid, glassmorphism/neumorphism, 3D transforms
-- **Tailwind CSS** (CDN) - utility layer for layout/spacing
-- **Vanilla JavaScript (ES2023)** - no framework, no bundler
-- **Anime.js** (CDN) - every animation timeline
-- **Google Fonts** - Space Grotesk (display) + Inter (body)
-- **Font Awesome** (CDN) - every icon in the app
+| Layer | Files | Responsibility |
+| --- | --- | --- |
+| Rules | `game.js`, `board.js`, `player.js`, `ai.js` | Board geometry, legal moves, captures, blockades, turn flow, and AI choice, with no screen or menu logic |
+| Presentation | `app.js`, `modal.js`, `animation.js`, `dice.js`, `sound.js` | Screens, menus, HUD, dialogs, animation, and audio |
+| Support | `utils.js`, `storage.js`, `timer.js` | Shared helpers, persistence, and the match clock |
 
-A note on architecture: the app is organized into focused, single-responsibility
-modules (one per file, as listed above), but they attach their public API to a
-shared `window.Ludo` namespace rather than using native ES `import`/`export`.
-This is a deliberate choice: browsers block `type="module"` script fetches
-under the `file://` origin, which would break the "just open index.html"
-requirement. Loading the same modular files as plain deferred scripts keeps
-every other benefit of the module split while actually working when the file
-is opened directly.
+`game.js` communicates with the interface through an event bus (`game.bus`), and `app.js` listens to those events to update the screen. Board squares are addressed by a token's step count: step 0 is the base, steps 1 to 51 are on the shared track, and steps 52 to 57 are in the home column, where step 57 is home.
 
-## Official Game Rules
+For a function-by-function reference, see [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
-- Turn order is fixed and clockwise: **Red → Green → Blue → Yellow**, matching the board's actual corners (Red top-left, Green top-right, Blue bottom-right, Yellow bottom-left). 2-player matches use the diagonal Red/Blue pair; 3-player matches use Red/Green/Blue.
-- Each player has four tokens that start in their base (yard).
-- Roll a **six** to move a token out of the base and onto its start square.
-- Rolling a six also grants an **immediate extra turn**. Rolling three sixes
-  in a row forfeits the turn entirely (no token moves).
-- Tokens move clockwise around the shared 52-square track, then turn into
-  their own 6-square home column, and must reach home with an **exact**
-  roll - overshooting is not a legal move.
-- **Safe squares** (each color's start square, plus one star square per
-  quadrant) protect tokens from capture.
-- Landing exactly on a single opponent token on an unsafe square **captures**
-  it, sending it back to that player's base.
-- Two or more tokens of the same color on one square form a **blockade**
-  that opponents cannot pass or land on.
-- The first player to bring all four tokens home **wins** the match.
+## Data Storage
 
-## Documentation
+The game stores three items in the browser's `localStorage` and sends nothing over the network:
 
-This README covers the what and how-to-play. For a deep dive into the
-codebase itself - what every file and function does, how the modules fit
-together, and how to safely change a rule, an animation, or a screen -
-see **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
+| Key | Contents |
+| --- | --- |
+| `ludo.stats.v1` | Games played, wins, losses, fastest win, longest match, and total duration |
+| `ludo.settings.v1` | Sound and animation preferences |
+| `ludo.save.v1` | Snapshot of the match in progress, replaced after each turn and cleared when the match ends |
 
-## Legal
+All reads and writes go through `scripts/storage.js` and are wrapped in `try/catch` so a storage error does not stop the game.
 
-- **[legal/TERMS.md](legal/TERMS.md)** - Terms and Conditions
-- **[legal/PRIVACY.md](legal/PRIVACY.md)** - Privacy Policy
-- **[LICENSE](LICENSE)** - Software license: ownership, "as is" disclaimer, and limitation of liability
-- **[pages/legal.html](pages/legal.html)** - the Terms & Privacy documents, rendered as a live in-app page (linked from the main menu footer and from Settings), since plain `.md` files don't render as readable pages on every static host without a build step
+## Accessibility
 
-The short version of the Privacy Policy: there's no server, no accounts,
-and no analytics. Everything the game remembers (settings, statistics,
-your current match) lives only in your own browser's `localStorage` and is
-never transmitted anywhere.
+Implemented practices visible in the code:
 
-## Going Live
+- `lang="en"` on the root element
+- `aria-label` on icon-only buttons and the board, with `aria-hidden` on decorative icons
+- `aria-live` on the current-player display and `role="alert"` on setup errors
+- Dialogs that trap keyboard focus and close with the Escape key
+- Tokens that are focusable and can be selected with Enter or Space
+- Visible focus styles
+- Support for `prefers-reduced-motion` and `prefers-contrast` in the stylesheet, and an Animations switch in Settings
+- Text labels alongside player colors, since each player card shows a name
 
-Ludo Royale is a fully static site - there's no build step and nothing to
-compile, so "deploying" is just publishing these files as-is. A few
-options:
+No accessibility audit or WCAG conformance level is claimed.
 
-- **GitHub Pages** - push this folder to a repo and enable Pages on the `main` branch (or a `docs/` folder). No configuration needed.
-- **Netlify / Vercel / Cloudflare Pages** - drag-and-drop deploy or connect the repo; leave the build command empty and set the publish directory to the project root.
-- **Any static file host** (S3 + CloudFront, nginx, etc.) - upload the folder as-is.
+## SEO
 
-Before going live, it's worth doing a final pass on `legal/TERMS.md` /
-`legal/PRIVACY.md` / `pages/legal.html` / `LICENSE` to fill in your own
-contact details and jurisdiction if you've forked this project rather
-than using it as-is.
+`index.html` includes a title, meta description, viewport meta tag (with `viewport-fit=cover`), and an SVG favicon. It does not include Open Graph tags, a canonical URL, a sitemap, or `robots.txt`.
 
-## Screenshots
+## Performance Considerations
 
-_Add screenshots here once you've captured them from a running match -
-e.g. `docs/screenshot-menu.png`, `docs/screenshot-board.png`,
-`docs/screenshot-win.png`._
+- Visuals are drawn with CSS and DOM elements, so the repository contains no image or audio files beyond the favicon
+- The match timer runs on `requestAnimationFrame`, and the AI uses a single-move heuristic rather than a search
+- The Tailwind Play CDN compiles styles in the browser at load time. It is intended for prototyping, and a compiled Tailwind build would be the usual choice for production
 
-## Future Improvements
+## Known Limitations
 
-- Optional local pass-and-play vs. online multiplayer (would require a
-  server component, intentionally out of scope for this offline build).
-- Selectable token skins / board themes.
-- Adjustable AI difficulty levels.
-- Per-player win/loss breakdown in Statistics (currently tracked from the
-  primary human seat's perspective).
-- Optional recorded sound pack alongside the procedural default (see
-  `assets/sounds/README.md`).
+- There is no online or same-network multiplayer; all human players share one device
+- AI difficulty is fixed and cannot be changed
+- Win and loss statistics are recorded from the first Human seat's point of view, so a win by another human player in the same match counts as a loss in the statistics
+- Statistics, settings, and saved matches live in one browser profile and are not shared between devices or browsers
+- Only one saved match is kept at a time
+- The game needs an internet connection to load its external libraries and fonts
+- No automated tests are included
 
-## Credits & Author
+## Documentation and Legal
 
-Ludo Royale was designed and built end-to-end - architecture, rules
-engine, board geometry, motion design, and UI - by:
-
-**Ubaid Ahmad**
-Full-Stack MERN Developer & UI/UX Designer, Computer Science student at
-the University of Swabi. Ubaid builds full-stack web applications and
-polished interfaces, with a focus on clean architecture and interfaces
-that stay out of the user's way.
-
-- Portfolio: [stackiid.github.io/portfolio](https://stackiid.github.io/portfolio/)
-- GitHub: [@stackiid](https://github.com/stackiid)
-- LinkedIn: [ubaidahmaddev](https://www.linkedin.com/in/ubaidahmaddev)
-- Email: [iubaidahmad303@gmail.com](mailto:iubaidahmad303@gmail.com)
-
-Built with the technologies listed above - full credit to the Tailwind
-CSS, Anime.js, Font Awesome, and Google Fonts teams for the open tools
-this project stands on. See the in-app **Credits** screen (main menu) for
-the same information alongside the license badges for those projects.
+- [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md): file-by-file code reference
+- [legal/TERMS.md](./legal/TERMS.md): Terms and Conditions
+- [legal/PRIVACY.md](./legal/PRIVACY.md): Privacy Policy
+- [pages/legal.html](./pages/legal.html): the same documents as an in-app page, linked from the main menu
 
 ## License
 
-This project is licensed under an all-rights-reserved license with an
-explicit "as is" disclaimer and limitation of liability - see
-[LICENSE](LICENSE) for the full text, and
-[legal/TERMS.md](legal/TERMS.md) for the plain-language Terms of use.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+
+Copyright (c) 2026 Ubaid Ahmad
+
+## Author
+
+Built by [Ubaid Ahmad](https://github.com/stackiid). Portfolio: [stackiid.github.io/portfolio](https://stackiid.github.io/portfolio/).
+
+## Acknowledgements
+
+- Animation library: [Anime.js](https://animejs.com)
+- Styling utilities from [Tailwind CSS](https://tailwindcss.com)
+- Typefaces from [Google Fonts](https://fonts.google.com): Space Grotesk and Inter
+- Icons from [Font Awesome](https://fontawesome.com)
